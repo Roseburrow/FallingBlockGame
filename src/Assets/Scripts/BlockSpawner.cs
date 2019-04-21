@@ -5,12 +5,12 @@ using UnityEngine;
 public class BlockSpawner : MonoBehaviour
 {
     public GameObject fallingBlockPrefab;
+    Vector2 screenHalfSizeWorldUnits;
+
     public Vector2 spawnScaleMinMax;
     public float spawnAngleMax;
 
-    Vector2 screenHalfSizeWorldUnits;
-
-    public float secondsBetweenSpawn = 1;
+    public Vector2 secondsBetweenSpawnMinMax;
     float nextSpawnTime;
 
     void Start()
@@ -21,7 +21,16 @@ public class BlockSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Time.time > nextSpawnTime) {
+        if (Time.time > nextSpawnTime) 
+        {
+            //Linear Interpolation
+            // a, b and move between them  via percentage p
+            //value = a + (b - a) * p
+            float secondsBetweenSpawn = Mathf.Lerp(
+                secondsBetweenSpawnMinMax.y, 
+                secondsBetweenSpawnMinMax.x, 
+                DifficultyInformation.GetDifficultyPercentage()
+            );
             nextSpawnTime = Time.time + secondsBetweenSpawn;
 
             float spawnAngle = Random.Range(-spawnAngleMax, spawnAngleMax);
