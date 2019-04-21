@@ -6,11 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 7;
 
-    float screenHalfWidthInWorldUnits = 9.5f;
+    float screenHalfWidthInWorldUnits;
 
     void Start()
     {
-
+        //Calculate the screen width in world unity by aspect ratio * orthographic size.
+        //Then add the player width / 2 to account for the player.
+        float halfPlayerWidth = transform.localScale.x / 2f;
+        screenHalfWidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize + halfPlayerWidth;
     }
 
     void Update()
