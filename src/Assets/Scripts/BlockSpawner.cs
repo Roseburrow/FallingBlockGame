@@ -5,6 +5,9 @@ using UnityEngine;
 public class BlockSpawner : MonoBehaviour
 {
     public GameObject fallingBlockPrefab;
+    public Vector2 spawnScaleMinMax;
+    public float spawnAngleMax;
+
     Vector2 screenHalfSizeWorldUnits;
 
     public float secondsBetweenSpawn = 1;
@@ -21,12 +24,15 @@ public class BlockSpawner : MonoBehaviour
         if (Time.time > nextSpawnTime) {
             nextSpawnTime = Time.time + secondsBetweenSpawn;
 
-            //Gets a random position where x is between the screen width and the y is half the screen width.
+            float spawnAngle = Random.Range(-spawnAngleMax, spawnAngleMax);
+            float spawnSize = Random.Range(spawnScaleMinMax.x, spawnScaleMinMax.y);
             Vector2 spawnPosition = new Vector2(
                 Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
-                screenHalfSizeWorldUnits.y + 0.5f
-            );
-            Instantiate(fallingBlockPrefab, spawnPosition, Quaternion.identity);
+                screenHalfSizeWorldUnits.y + spawnSize
+            );       
+
+            GameObject block = (GameObject)Instantiate(fallingBlockPrefab, spawnPosition, Quaternion.Euler(0, 0, spawnAngle));
+            block.transform.localScale = Vector3.one * spawnSize;
         }
     }
 }
