@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         //Calculate the screen width in world unity by aspect ratio * orthographic size.
-        //Player width is accounted for in Update().
+        //Player width is accounted for in Update.
         screenHalfWidthInWorldUnits = Camera.main.aspect * Camera.main.orthographicSize;
     }
 
@@ -30,6 +30,13 @@ public class PlayerController : MonoBehaviour
 		if (transform.position.x - halfPlayerWidth > screenHalfWidthInWorldUnits) 
         {
             transform.position = new Vector2(-screenHalfWidthInWorldUnits, transform.position.y);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D triggerCollider) {
+        if (triggerCollider.tag == "FallingBlock") 
+        {
+            Destroy(gameObject);
         }
     }
 }
