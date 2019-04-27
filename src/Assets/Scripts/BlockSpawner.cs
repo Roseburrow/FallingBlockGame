@@ -7,12 +7,12 @@ public class BlockSpawner : MonoBehaviour
     public GameObject fallingBlockPrefab;
     Vector2 screenHalfSizeWorldUnits;
 
-    public Vector2 spawnScaleMinMax;
-    public float spawnAngleMax;
-
     public Vector2 secondsBetweenSpawnMinMax;
     float nextSpawnTime;
 
+    public Vector2 spawnScaleMinMax;
+    public float spawnAngleMax;
+    
     void Start()
     {
         //Get screen width for spawning in valid places.

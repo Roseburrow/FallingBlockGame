@@ -7,6 +7,6 @@ public static class DifficultyInformation
     static float secondsBeforeMaxDifficulty = 60f;
 
     public static float GetDifficultyPercentage() {
-        return Mathf.Clamp01(Time.time / secondsBeforeMaxDifficulty);
+        return Mathf.Clamp01(Time.timeSinceLevelLoad / secondsBeforeMaxDifficulty);
     }
 }
